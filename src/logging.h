@@ -2,9 +2,16 @@
 
 #include <iostream>
 #include <chrono>
-#include <print>
 
+//-------------------------------------------------------------------
+// parameters
+
+
+
+
+//-------------------------------------------------------------------
 // colourrrrs
+
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"                 /* Black */
 #define RED     "\033[31m"                 /* Red */
@@ -23,26 +30,34 @@
 #define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
-// macros for writing errors
+//-------------------------------------------------------------------
+// defining macros for writing to log
+
 #define LOG_FATAL(msg, ...) loggingSys::log::getInstance().printNext(MAGENTA,"[FATAL] ", msg, ##__VA_ARGS__);
 #define LOG_ERROR(msg, ...) loggingSys::log::getInstance().printNext(RED,"[ERROR] ", msg, ##__VA_ARGS__);
 #define LOG_WARN(msg, ...) loggingSys::log::getInstance().printNext(YELLOW,"[WARN] ", msg, ##__VA_ARGS__);
 #define LOG_INFO(msg, ...) loggingSys::log::getInstance().printNext(GREEN,"[INFO] ", msg, ##__VA_ARGS__);
 
-// all logging stuff goes here
-namespace loggingSys
-{
-    //get timestamp
-    time_t getTimestamp()
-    {
-        auto time = std::chrono::system_clock::now();
-        auto asTimeT = std::chrono::system_clock::to_time_t(time);
-        return asTimeT;
-    }
 
+//-------------------------------------------------------------------
+// all logging functionality
+
+namespace loggingSys
+{    
+    
     // class for log
     class log
     {
+    private:
+        //get timestamp - put into human readable
+        time_t getTimestamp()
+        {
+            auto time = std::chrono::system_clock::now();
+            auto asTimeT = std::chrono::system_clock::to_time_t(time);
+
+            return asTimeT;
+        }
+
     public:
         // singletonism
         static log& getInstance()
@@ -51,8 +66,8 @@ namespace loggingSys
             return instance;
         }
 
-
-        void printNext(char* colour, char* logType, char* msg)
+        // function to print to log
+        void printNext(const char* colour, const char* logType, const char* msg)
         {
             std::cout << colour << getTimestamp() << logType << msg << std::endl;
         }

@@ -1,7 +1,7 @@
 # loggingCPP
 
 A simple logging program for C++ programs.
-Features: colours, timestamps, simpleton (for added performance), writing to text files.
+Features: colours, timestamps, object is created only once, writing to text files.
 
 
 ### Instructions
