@@ -1,17 +1,15 @@
-#include <iostream>
-#include <chrono>
 #include "logging.h"
 
 
 int main()
 {
     
-    log log;
+    loggingSys::log &log1 = loggingSys::log::getInstance();
 
-    log.warn("You are a ...");
+    LOG_FATAL("You are a ...");
 
-    log.error("this is invalid :(");
+    LOG_WARN("this is invalid :(");
 
-    log.fatal("fatal error!");
+    LOG_INFO("fatal error!");
 
 }

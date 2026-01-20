@@ -1,5 +1,10 @@
 #pragma once
 
+#include <iostream>
+#include <chrono>
+#include <print>
+
+// colourrrrs
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"                 /* Black */
 #define RED     "\033[31m"                 /* Red */
@@ -18,16 +23,15 @@
 #define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
-class log
+// macros for writing errors
+#define LOG_FATAL(msg, ...) loggingSys::log::getInstance().printNext(MAGENTA,"[FATAL] ", msg, ##__VA_ARGS__);
+#define LOG_ERROR(msg, ...) loggingSys::log::getInstance().printNext(RED,"[ERROR] ", msg, ##__VA_ARGS__);
+#define LOG_WARN(msg, ...) loggingSys::log::getInstance().printNext(YELLOW,"[WARN] ", msg, ##__VA_ARGS__);
+#define LOG_INFO(msg, ...) loggingSys::log::getInstance().printNext(GREEN,"[INFO] ", msg, ##__VA_ARGS__);
+
+namespace loggingSys
 {
-public:
-    
-    enum level
-    {
-        levelInfo, levelWarning, levelError
-    };
-
-
+    //get timestamp
     time_t getTimestamp()
     {
         auto time = std::chrono::system_clock::now();
@@ -35,27 +39,24 @@ public:
         return asTimeT;
     }
 
-    void fatal(char* msg)
+    // class for log
+    class log
     {
-        
-        std::cout << RED << getTimestamp() << "[FATAL] " << msg << std::endl;
-    }
+    public:
+        // singletonism
+        static log& getInstance()
+        {
+            static log instance;
+            return instance;
+        }
 
-    void error(char* msg)
-    {
-        std::cout << MAGENTA << getTimestamp() << "[ERROR] " << msg << std::endl;
-    }
 
-    void warn(char* msg)
-    {
-        std::cout << YELLOW << getTimestamp() << "[WARN]" << msg << std::endl;
-    }
+        void printNext(char* colour, char* logType, char* msg)
+        {
+            std::cout << colour << getTimestamp() << logType << msg << std::endl;
+        }
 
-    void info(char* msg)
-    {
-        std::cout << getTimestamp() << "[INFO] " << msg << std::endl;
-    }
-
-private:
-
-};
+    protected:
+        log () = default;
+    };
+}
