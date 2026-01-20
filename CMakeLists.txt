@@ -5,6 +5,6 @@ project(logcpp
     LANGUAGES CXX   
 )
 
-add_executable(arAll 
-    src/logging.cpp
+add_executable(logger 
+    src/example.cpp
 )

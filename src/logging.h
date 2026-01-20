@@ -29,6 +29,7 @@
 #define LOG_WARN(msg, ...) loggingSys::log::getInstance().printNext(YELLOW,"[WARN] ", msg, ##__VA_ARGS__);
 #define LOG_INFO(msg, ...) loggingSys::log::getInstance().printNext(GREEN,"[INFO] ", msg, ##__VA_ARGS__);
 
+// all logging stuff goes here
 namespace loggingSys
 {
     //get timestamp
