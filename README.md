@@ -8,8 +8,7 @@ Features: colours, timestamps, simpleton (for added performance), writing to tex
 
 1. include `logging.h`
 
-2. create instance of log `loggingSys::log &log1 = loggingSys::log::getInstance();`
-    (the $log1 reference can be whatever you like it to be called)
+thats it...
 
 
 ### Macros
