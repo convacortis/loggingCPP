@@ -29,14 +29,14 @@ fill "..." with whatever you feel like.
 
 - make timestamp human readable
 
-- support for variables
-
 - release and debug modes (in release log macros should be stripped)
 
 - ability to filter/hide which logs show
 
 - option for program abortion if an error/fatal is reached
 
-- macro(s) to track memory
-
 - thread safety
+
+- ~~macro(s) to track memory~~
+
+- ~~support for variables~~

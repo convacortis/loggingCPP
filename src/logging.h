@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <cstdarg>
+#include <cstdio>
 #include <chrono>
 
 //-------------------------------------------------------------------
@@ -37,6 +39,7 @@
 #define LOG_ERROR(msg, ...) loggingSys::log::getInstance().printNext(RED,"[ERROR] ", msg, ##__VA_ARGS__);
 #define LOG_WARN(msg, ...) loggingSys::log::getInstance().printNext(YELLOW,"[WARN] ", msg, ##__VA_ARGS__);
 #define LOG_INFO(msg, ...) loggingSys::log::getInstance().printNext(GREEN,"[INFO] ", msg, ##__VA_ARGS__);
+#define LOG_MEMORY(msg, ...) loggingSys::log::getInstance().printNext(CYAN,"[MEMORY] ", msg, ##__VA_ARGS__);
 
 
 //-------------------------------------------------------------------
@@ -67,9 +70,16 @@ namespace loggingSys
         }
 
         // function to print to log
-        void printNext(const char* colour, const char* logType, const char* msg)
+        void printNext(const char* colour, const char* logType, const char* msg, ...)
         {
-            std::cout << colour << getTimestamp() << logType << msg << std::endl;
+            printf("%s%lld %s", colour, getTimestamp(), logType);
+
+            va_list args;
+            va_start(args, msg);
+            vfprintf(stdout, msg, args);
+            va_end(args);
+            printf("%s\n", RESET);
+
         }
 
     protected:
